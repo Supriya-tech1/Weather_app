@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart';
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -10,29 +10,20 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String? username;
 
-  Future<void> getData()
-  async {
-    //process
-     await Future.delayed(Duration(seconds: 2), () {
-      username = " Supriya";
-    });
 
-  }
-
-  void showData() async
+  void getData() async
   {
-    await getData();
-    print("$username");
+    //get Data
+    Response response = await get(Uri.parse("https://worldtimeapi.org/api/timezone/Asia/Kolkata"));
+    print(response.body);
 
   }
-
 
   int counter = 1;
   @override
   void initState() {
     super.initState();
-
-    showData();
+    getData();
     print("This is a init state");
   }
 
