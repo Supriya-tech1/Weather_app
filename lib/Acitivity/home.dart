@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 class Home extends StatefulWidget {
@@ -8,22 +10,10 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String? username;
-
-
-  void getData() async
-  {
-    //get Data
-    Response response = await get(Uri.parse("https://worldtimeapi.org/api/timezone/Asia/Kolkata"));
-    print(response.body);
-
-  }
-
   int counter = 1;
   @override
   void initState() {
     super.initState();
-    getData();
     print("This is a init state");
   }
 
@@ -51,11 +41,9 @@ class _HomeState extends State<Home> {
     Column(
       children: <Widget>[
         FloatingActionButton(
-        onPressed: () => setState(() {
-      counter += 1;
-    }),
+        onPressed: () => () {},
     ),
-      Text("$counter")
+      Text("KUCH NAHI")
 
       ],
     ),
