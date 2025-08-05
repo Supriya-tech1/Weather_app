@@ -1,7 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -10,7 +8,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int counter = 1;
   @override
   void initState() {
     super.initState();
@@ -19,36 +16,43 @@ class _HomeState extends State<Home> {
 
   @override
   void setState(VoidCallback fn) {
-    // TODO: implement setState
     super.setState(fn);
     print("Set state called");
-
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     print("Widget Destroyed");
   }
+
   @override
   Widget build(BuildContext context) {
+    final route = ModalRoute.of(context);
+    if (route == null || route.settings.arguments == null) {
+      return Scaffold(
+        body: Center(child: Text("No data passed")),
+      );
+    }
+
+    final Map info = route.settings.arguments as Map;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Home Activity"),
       ),
-      body:
-    Column(
-      children: <Widget>[
-        FloatingActionButton(
-        onPressed: () => () {},
-    ),
-      Text("KUCH NAHI")
-
-      ],
-    ),
+      body: Column(
+        children: <Widget>[
+          FloatingActionButton(
+            onPressed: () {},
+          ),
+          Text("temperature: ${info["temp"]} °C"),
+          Text("humidity: ${info["humidity"]} %"),
+          Text("Wind Speed: ${info["airspeed"]} km/h"),
+          Text("Weather: ${info["main"]}"),
+          Text("Description: ${info["description"]}"),
+        ],
+      ),
     );
-
   }
 }
-
