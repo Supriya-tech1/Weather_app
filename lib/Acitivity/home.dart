@@ -43,6 +43,15 @@ class _HomeState extends State<Home> {
     }
 
     final Map info = route.settings.arguments as Map;
+    String temp = ((info['temp']).toString()).substring(0,4);
+    String icon = info['icon'];
+    String city = info['city'];
+    String humidity = info['humidity'];
+    String airspeed = info['airspeed'];
+    String description = info['description'];
+
+
+
 
     return Scaffold(
       appBar: PreferredSize(
@@ -105,12 +114,14 @@ class _HomeState extends State<Home> {
                       color: Colors.white.withOpacity(0.5),
                     ),
                     margin: EdgeInsets.symmetric(horizontal: 25),
-                    padding: EdgeInsets.all(26),
+                    padding: EdgeInsets.all(10),
                     child: Row(
                       children: [
+                        Image.network("https://openweathermap.org/img/wn/$icon@2x.png"),
+                        SizedBox(width: 20,),
                         Column(
                           children: [
-                            Text("Scattered clouds",style: TextStyle(
+                            Text("$description",style: TextStyle(
                               fontSize: 16,
                                   fontWeight: FontWeight.bold
                             ),
@@ -148,7 +159,7 @@ class _HomeState extends State<Home> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("41",style: TextStyle(
+                            Text("$temp",style: TextStyle(
                               fontSize: 70
                             ),),
                             Text("C",style: TextStyle(
@@ -185,7 +196,7 @@ class _HomeState extends State<Home> {
                         ),
                         SizedBox(height: 20,),
 
-                        Text("20.9",style: TextStyle(
+                        Text("$airspeed",style: TextStyle(
                           fontSize: 40,
                           fontWeight: FontWeight.bold
                         ),),
@@ -216,7 +227,7 @@ class _HomeState extends State<Home> {
                         ),
                         SizedBox(height: 20,),
 
-                        Text("60",style: TextStyle(
+                        Text("$humidity",style: TextStyle(
                             fontSize: 40,
                             fontWeight: FontWeight.bold
                         ),),

@@ -8,14 +8,17 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
+
+  String? city = "Durgapur";
   String? temp;
   String? hum;
   String? air_speed;
   String? description;
   String? main;
+  String? icon;
 
   void startApp() async {
-    Worker instance = Worker(location: "Durgapur");
+    Worker instance = Worker(location: "city");
     await instance.getData();
 
     temp = instance.temp;
@@ -23,6 +26,9 @@ class _LoadingState extends State<Loading> {
     air_speed = instance.airspeed;
     description = instance.description;
     main = instance.main;
+    icon = instance.icon;
+
+
     Future.delayed(Duration(seconds: 2),() {
       Navigator.pushNamed(context, '/home', arguments: {
         "temp": temp,
@@ -30,6 +36,8 @@ class _LoadingState extends State<Loading> {
         "airspeed": air_speed,
         "description": description,
         "main": main,
+        "icon": icon,
+        "city": city
       });
 
     });

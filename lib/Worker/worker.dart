@@ -8,6 +8,7 @@ class Worker {
   String airspeed = '';
   String description = '';
   String main = '';
+  String icon = '';
 
   Worker({required this.location});
 
@@ -18,6 +19,8 @@ class Worker {
           "https://api.openweathermap.org/data/2.5/weather?q=$location&appid=e66310cecfdeb654b3f2d40640b1592f"));
 
       Map data = jsonDecode(response.body);
+
+      print(data);
 
       Map temp_data = data['main'];
       String getHumidity = temp_data['humidity'].toString();
@@ -31,15 +34,19 @@ class Worker {
       main = weatherMainData['main'];
       description = weatherMainData['description'];
 
+
+
       temp = getTemp.toStringAsFixed(2);
       humidity = getHumidity;
       airspeed = getAir_sprrd.toStringAsFixed(2);
+      icon = weatherMainData["icon"].toString();
 
     } catch (e) {
       temp = "Can't find Data";
       humidity = "Can't find Data";
       airspeed = "Can't find Data";
       main = "Can't find Data";
+      icon = "04n";
     }
   }
 }
