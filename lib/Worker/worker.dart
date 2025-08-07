@@ -42,10 +42,11 @@ class Worker {
       icon = weatherMainData["icon"].toString();
 
     } catch (e) {
-      temp = "Can't find Data";
-      humidity = "Can't find Data";
-      airspeed = "Can't find Data";
-      main = "Can't find Data";
+      temp = "NA";
+      humidity = "NA";
+      airspeed = "NA";
+      description = "Can't find Data";
+      main = "NA";
       icon = "04n";
     }
   }

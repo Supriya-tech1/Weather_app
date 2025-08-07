@@ -18,7 +18,7 @@ class _LoadingState extends State<Loading> {
   String? icon;
 
   void startApp() async {
-    Worker instance = Worker(location: "city");
+    Worker instance = Worker(location: city!);
     await instance.getData();
 
     temp = instance.temp;
@@ -47,41 +47,55 @@ class _LoadingState extends State<Loading> {
   @override
   void initState() {
     super.initState();
-     startApp();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final args = ModalRoute.of(context)?.settings.arguments as Map?;
+      if (args != null && args['searchText'] != null) {
+        setState(() {
+          city = args['searchText'];
+        });
+      }
+
+      startApp(); // Start app after city is updated
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(height: 60),
-            Image.asset("images/Musam App logo.jpg", height: 350, width: 350),
-            Text(
-              "Mausam App",
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w500,
-                color: Colors.white
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+
+              SizedBox(height: 180,),
+              Image.asset("images/Musam App logo.jpg", height: 350, width: 350),
+              Text(
+                "Mausam App",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
               ),
-            ),
-            SizedBox(height: 15),
-            Text(
-              "Made by Supriya",
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w500,
-                  color: Colors.white
+              SizedBox(height: 15),
+              Text(
+                "Made by Supriya",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
               ),
-            ),
-            SizedBox(height: 30),
-            SpinKitWave(
-              color: Colors.white,
-              size: 50.0,
-            ),
-          ],
+              SizedBox(height: 30),
+              SpinKitWave(
+                color: Colors.white,
+                size: 50.0,
+              ),
+            ],
+          ),
         ),
       ),
       backgroundColor: Colors.blue[300],
